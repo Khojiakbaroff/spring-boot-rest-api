@@ -1,5 +1,6 @@
 package uz.pdp.restapiv1react.entity.dto;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +15,9 @@ import java.util.Set;
 @Setter
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class EmployeeLogin {
-    String username;
+    @NotBlank
+    String email;
+    @NotBlank
     String password;
     Set<Role> roles;
 }

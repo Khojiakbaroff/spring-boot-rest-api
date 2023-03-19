@@ -1,6 +1,9 @@
 package uz.pdp.restapiv1react.entity.dto;
 
 import uz.pdp.restapiv1react.entity.EmployeeEntity;
+import uz.pdp.restapiv1react.enums.Role;
+
+import java.util.Set;
 
 public class EmployeeBuilder {
 
@@ -9,13 +12,23 @@ public class EmployeeBuilder {
                 .builder()
                 .id(employeeRegister.getId())
                 .firstname(employeeRegister.getFirstname())
-                .username(employeeRegister.getUsername())
                 .lastname(employeeRegister.getLastname())
                 .email(employeeRegister.getEmail())
                 .gender(employeeRegister.getGender())
                 .password(employeeRegister.getPassword())
                 .status(true)
-                .roles(employeeRegister.getRoles())
+                .roles(setRolesIfNotExist(employeeRegister.getRoles()))
                 .build();
     }
+
+
+    private static Set<Role> setRolesIfNotExist(Set<Role> roles){
+      if (roles.isEmpty())
+          roles.add(Role.USER);
+          else
+              return roles;
+
+          return roles;
+    }
+
 }

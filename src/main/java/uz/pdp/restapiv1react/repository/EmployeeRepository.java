@@ -8,7 +8,7 @@ import uz.pdp.restapiv1react.entity.EmployeeEntity;
 import java.util.Optional;
 
 public interface EmployeeRepository extends CrudRepository<EmployeeEntity, Integer> {
-    Optional<EmployeeEntity> findByUsername(String username);
+    Optional<EmployeeEntity> findByEmail(String email);
     Page<EmployeeEntity> findAll(Pageable pageable);
 
 }

@@ -9,11 +9,15 @@ import uz.pdp.restapiv1react.entity.EmployeeEntity;
 import uz.pdp.restapiv1react.entity.dto.EmployeeRegister;
 import uz.pdp.restapiv1react.service.EmployeeService;
 
+import java.util.List;
+
 @RestController
-@RequestMapping(value = "/api/v1/employee")
+@RequestMapping("/api/v1/employee")
+@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE ,makeFinal = true)
 public class EmployeeController {
+
     EmployeeService employeeService;
 
     @GetMapping("/get")
@@ -22,14 +26,15 @@ public class EmployeeController {
             @RequestParam(required = false, defaultValue = "6") int size,
             @RequestParam(required = false, defaultValue = "id") String prop
     ) {
-        return ResponseEntity.ok(employeeService.getByPagination(page, size, prop));
+        List<EmployeeEntity> employeeEntities = this.employeeService.getByPagination(page, size, prop);
+        return ResponseEntity.ok(employeeEntities);
     }
 
     @PostMapping("/create")
     public ResponseEntity<?> createEmployee(
             @RequestBody EmployeeRegister employeeRegister
     ) {
-        Integer id = employeeService.create(employeeRegister);
+        Integer id = this.employeeService.create(employeeRegister);
         return ResponseEntity.ok(id);
     }
 
@@ -37,7 +42,7 @@ public class EmployeeController {
     public ResponseEntity<?> updateEmployee(
             @RequestBody EmployeeRegister employeeRegister
     ) {
-        Integer id = employeeService.update(employeeRegister);
+        Integer id = this.employeeService.update(employeeRegister);
         return ResponseEntity.ok(id);
     }
 
@@ -45,7 +50,7 @@ public class EmployeeController {
     public ResponseEntity<?> getEmployeeById(
             @RequestParam Integer id
     ) {
-        EmployeeEntity employeeEntity = employeeService.getById(id);
+        EmployeeEntity employeeEntity = this.employeeService.getById(id);
         return ResponseEntity.ok(employeeEntity);
     }
 
@@ -53,7 +58,7 @@ public class EmployeeController {
     public ResponseEntity<?> deleteById(
             @RequestParam Integer id
     ) {
-        boolean status = employeeService.deleteById(id);
+        boolean status = this.employeeService.deleteById(id);
         return ResponseEntity.ok(status);
     }
 }

@@ -18,16 +18,16 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class EmployeeService {
-   private final EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
 
-    public List<EmployeeEntity> getByPagination(int page, int size, String property){
-        Pageable pageable = getPageable(page,size,property);
-       return employeeRepository.findAll(pageable).toList();
+    public List<EmployeeEntity> getByPagination(int page, int size, String property) {
+        Pageable pageable = getPageable(page, size, property);
+        return employeeRepository.findAll(pageable).toList();
     }
 
     public Integer create(EmployeeRegister employee) {
-        String username = employee.getUsername();
-        checkByUsername(username);
+        String email = employee.getEmail();
+        checkByUsername(email);
         EmployeeEntity employeeEntity = EmployeeBuilder.of(employee);
         EmployeeEntity savedEmployeeEntity = employeeRepository.save(employeeEntity);
         return savedEmployeeEntity.getId();
@@ -57,12 +57,13 @@ public class EmployeeService {
                         () -> new RecordNotFoundException(id + " not found"));
     }
 
-    private void checkByUsername(final String username){
+    private void checkByUsername(final String username) {
         Optional<EmployeeEntity> existUsername = employeeRepository
-                .findByUsername(username);
+                .findByEmail(username);
         if (existUsername.isPresent())
             throw new RecordAlreadyExistException(username + " already exists");
     }
+
     private Pageable getPageable(int page, int size, String property) {
         return PageRequest.of(page, size, Sort.by(property).ascending());
     }

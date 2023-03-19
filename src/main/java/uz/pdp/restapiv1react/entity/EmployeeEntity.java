@@ -15,15 +15,12 @@ import java.util.Set;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class EmployeeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer id;
     String firstname;
     String lastname;
-    @Column(unique = true, nullable = false, length = 35)
-    String username;
     @Column(nullable = false, length = 30)
     String password;
     @Column(unique = true, nullable = false, length = 50)
