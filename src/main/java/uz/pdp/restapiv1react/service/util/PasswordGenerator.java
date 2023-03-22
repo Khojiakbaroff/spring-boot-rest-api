@@ -1,4 +1,4 @@
-package uz.pdp.restapiv1react.util;
+package uz.pdp.restapiv1react.service.util;
 
 import java.util.Random;
 

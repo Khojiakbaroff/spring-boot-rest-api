@@ -20,7 +20,7 @@ public class EmployeeController {
 
     EmployeeService employeeService;
 
-    @GetMapping("/get")
+    @GetMapping("/list")
     public ResponseEntity<?> getByPageable(
             @RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "6") int size,

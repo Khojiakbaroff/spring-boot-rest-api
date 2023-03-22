@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import uz.pdp.restapiv1react.customExcaptions.RecordAlreadyExistException;
 import uz.pdp.restapiv1react.customExcaptions.RecordNotFoundException;
@@ -22,14 +23,14 @@ public class EmployeeService {
 
     public List<EmployeeEntity> getByPagination(int page, int size, String property) {
         Pageable pageable = getPageable(page, size, property);
-        return employeeRepository.findAll(pageable).toList();
+        return this.employeeRepository.findAll(pageable).toList();
     }
 
     public Integer create(EmployeeRegister employee) {
-        String email = employee.getEmail();
+        final String email = employee.getEmail();
         checkByUsername(email);
         EmployeeEntity employeeEntity = EmployeeBuilder.of(employee);
-        EmployeeEntity savedEmployeeEntity = employeeRepository.save(employeeEntity);
+        EmployeeEntity savedEmployeeEntity = this.employeeRepository.save(employeeEntity);
         return savedEmployeeEntity.getId();
     }
 
@@ -37,28 +38,29 @@ public class EmployeeService {
         return checkByIdAndGet(id);
     }
 
-    public boolean deleteById(final Integer id) {
+    public boolean deleteById(@NonNull final Integer id) {
         checkByIdAndGet(id);
-        employeeRepository.deleteById(id);
-        return employeeRepository.existsById(id);
+         this.employeeRepository.deleteById(id);
+        return !employeeRepository.existsById(id);
     }
+
 
     public Integer update(EmployeeRegister employeeRegister) {
         checkByIdAndGet(employeeRegister.getId());
         EmployeeEntity employeeEntity = EmployeeBuilder.of(employeeRegister);
-        EmployeeEntity savedEntity = employeeRepository.save(employeeEntity);
+        EmployeeEntity savedEntity =  this.employeeRepository.save(employeeEntity);
         return savedEntity.getId();
     }
 
-    private EmployeeEntity checkByIdAndGet(final Integer id) {
-        return employeeRepository
+    private EmployeeEntity checkByIdAndGet(@NonNull final Integer id) {
+        return  this.employeeRepository
                 .findById(id)
                 .orElseThrow(
                         () -> new RecordNotFoundException(id + " not found"));
     }
 
     private void checkByUsername(final String username) {
-        Optional<EmployeeEntity> existUsername = employeeRepository
+        Optional<EmployeeEntity> existUsername =  this.employeeRepository
                 .findByEmail(username);
         if (existUsername.isPresent())
             throw new RecordAlreadyExistException(username + " already exists");
