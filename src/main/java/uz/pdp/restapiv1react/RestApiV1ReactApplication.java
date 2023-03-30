@@ -8,5 +8,4 @@ public class RestApiV1ReactApplication {
     public static void main(String[] args) {
         SpringApplication.run(RestApiV1ReactApplication.class, args);
     }
-
 }
