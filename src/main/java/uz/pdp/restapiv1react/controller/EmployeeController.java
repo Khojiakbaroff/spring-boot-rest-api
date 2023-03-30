@@ -1,8 +1,6 @@
 package uz.pdp.restapiv1react.controller;
 
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.restapiv1react.entity.EmployeeEntity;
@@ -15,10 +13,9 @@ import java.util.List;
 @RequestMapping("/api/v1/employee")
 @CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE ,makeFinal = true)
 public class EmployeeController {
 
-    EmployeeService employeeService;
+    private final EmployeeService employeeService;
 
     @GetMapping("/list")
     public ResponseEntity<?> getByPageable(
