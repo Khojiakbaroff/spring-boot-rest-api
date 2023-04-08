@@ -6,7 +6,6 @@ import uz.pdp.restapiv1react.service.MailService;
 
 @RestController
 @RequestMapping("/api/v1/mail")
-@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 public class MailController {
 

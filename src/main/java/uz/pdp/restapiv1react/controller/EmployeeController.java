@@ -4,20 +4,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.restapiv1react.entity.EmployeeEntity;
-import uz.pdp.restapiv1react.entity.dto.EmployeeRegister;
+import uz.pdp.restapiv1react.dto.EmployeeRegister;
 import uz.pdp.restapiv1react.service.EmployeeService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/employee")
-@CrossOrigin(origins = "http://localhost:3000")
 @RequiredArgsConstructor
 public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-    @GetMapping("/list")
+    @GetMapping("/all")
     public ResponseEntity<?> getByPageable(
             @RequestParam(required = false, defaultValue = "0") int page,
             @RequestParam(required = false, defaultValue = "6") int size,

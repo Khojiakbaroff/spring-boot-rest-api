@@ -1,4 +1,4 @@
-package uz.pdp.restapiv1react.entity.dto;
+package uz.pdp.restapiv1react.dto;
 
 import uz.pdp.restapiv1react.entity.EmployeeEntity;
 import uz.pdp.restapiv1react.enums.Role;
@@ -24,6 +24,9 @@ public class EmployeeBuilder {
     }
 
 
+    /**
+     * Method sets default role if role not exists
+     */
     private static Set<Role> setRolesIfNotExist(Set<Role> roles) {
         if (roles == null) {
             roles = new HashSet<>();

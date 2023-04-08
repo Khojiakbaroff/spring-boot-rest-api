@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import uz.pdp.restapiv1react.customExcaptions.RecordAlreadyExistException;
 import uz.pdp.restapiv1react.customExcaptions.RecordNotFoundException;
 import uz.pdp.restapiv1react.entity.EmployeeEntity;
-import uz.pdp.restapiv1react.entity.dto.EmployeeBuilder;
-import uz.pdp.restapiv1react.entity.dto.EmployeeRegister;
+import uz.pdp.restapiv1react.dto.EmployeeBuilder;
+import uz.pdp.restapiv1react.dto.EmployeeRegister;
 import uz.pdp.restapiv1react.repository.EmployeeRepository;
 
 import java.util.List;
@@ -41,7 +41,7 @@ public class EmployeeService {
         return checkByIdAndGet(id);
     }
 
-    public boolean deleteById(@NonNull final Integer id) {
+    public boolean deleteById(final Integer id) {
         checkByIdAndGet(id);
         this.employeeRepository.deleteById(id);
         return !employeeRepository.existsById(id);

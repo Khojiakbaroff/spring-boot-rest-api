@@ -1,6 +1,7 @@
 package uz.pdp.restapiv1react.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import uz.pdp.restapiv1react.enums.Gender;
@@ -30,6 +31,7 @@ public class EmployeeEntity {
     String password;
 
     @Column(unique = true, nullable = false, length = 50)
+    @Email
     String email;
 
     @Enumerated(EnumType.STRING)
